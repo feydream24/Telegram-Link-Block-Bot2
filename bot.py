@@ -86,20 +86,18 @@ async def list_no_exempt(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("✅ Bot is running and ready!\nYou can control me via private chat using group IDs.")
 
-TOKEN = os.environ.get("TOKEN")
-
-if not TOKEN:
-    raise ValueError("❌ TOKEN environment variable not set!")
+# *** সরাসরি এখানে টোকেন বসিয়ে দিলাম ***
+TOKEN = "7945756761:AAH9rgtEx3eOfZWGto-JD1A5DjM1MHOlflA"
 
 app = ApplicationBuilder().token(TOKEN).build()
 
-# ✅ First, command handlers (these will capture command messages first)
+# Command handlers
 app.add_handler(CommandHandler("addnoexempt", add_no_exempt))
 app.add_handler(CommandHandler("removenoexempt", remove_no_exempt))
 app.add_handler(CommandHandler("listnoexempt", list_no_exempt))
 app.add_handler(CommandHandler("start", start))
 
-# ✅ Then, all text messages including commands (if not matched above)
+# Message handler
 app.add_handler(MessageHandler(filters.TEXT, delete_links))
 
 logger.info("✅ Bot is running...")
